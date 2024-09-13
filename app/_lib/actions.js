@@ -4,6 +4,47 @@ import { revalidatePath } from "next/cache";
 import { auth, signIn, signOut } from "./auth";
 import { supabase } from "./supabase";
 import { getBookings } from "./data-service";
+import { redirect } from "next/navigation";
+
+export async function updateReservationAction(formData) {
+  //1) Authentication
+  const session = await auth();
+  if (!session)
+    throw new Error("You must be logged in to update your reservation");
+
+  //2) Authorization
+  const guestBookings = await getBookings(session.user.guestId);
+  const guestBookingsIds = guestBookings.map((booking) => booking.id);
+
+  const bookingId = Number(formData.get("bookingId"));
+
+  if (!guestBookingsIds.includes(bookingId))
+    throw new Error("You can only delete your own reservations");
+
+  //3) Building updated data
+  const updatedFields = {
+    numGuests: Number(formData.get("numGuests")),
+    observations: formData.get("observations").slice(0, 1000),
+  };
+
+  //4) Mutation
+  const { error } = await supabase
+    .from("bookings")
+    .update(updatedFields)
+    .eq("id", bookingId)
+    .select()
+    .single();
+
+  //5) Error handling
+  if (error) throw new Error("Booking could not be updated");
+
+  //6) Revalidation
+  revalidatePath("/account/reservations");
+  revalidatePath(`/account/reservations/edit/${bookingId}`);
+
+  //7) Redirecting
+  redirect("/account/reservations");
+}
 
 export async function updateGuestAction(formData) {
   const session = await auth();
