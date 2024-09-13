@@ -32,7 +32,7 @@ export async function updateGuestAction(formData) {
 }
 
 export async function deleteReservationAction(bookingId) {
-  const session = auth();
+  const session = await auth();
   if (!session)
     throw new Error("You must be logged in to delete your reservation");
 
