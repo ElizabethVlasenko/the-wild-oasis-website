@@ -37,3 +37,9 @@
   --rdp-background-color: theme("colors.accent.600") !important;
   margin: 0 !important;
 }
+
+.rdp .rdp-months {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}

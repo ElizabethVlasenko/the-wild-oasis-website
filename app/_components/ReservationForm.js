@@ -6,7 +6,7 @@ import { createReservationAction } from "@/app/_lib/actions";
 import SubmitButton from "./SubmitButton";
 
 function ReservationForm({ cabin, user, settings }) {
-  const { range, resetRange } = useReservation();
+  const { range, resetRange, setNumGuests } = useReservation();
   const { maxCapacity, regularPrice, discount, id } = cabin;
 
   const { maxCheckOutTime, minCheckInTime } = settings;
@@ -38,7 +38,7 @@ function ReservationForm({ cabin, user, settings }) {
   };
 
   return (
-    <div className="scale-[1.01]">
+    <div className="">
       <div className="bg-primary-800 text-primary-300 px-16 py-2 flex justify-between items-center">
         <p>Logged in as</p>
 
@@ -62,6 +62,9 @@ function ReservationForm({ cabin, user, settings }) {
           <label htmlFor="numGuests">How many guests?</label>
           <select
             name="numGuests"
+            onChange={(e) => {
+              setNumGuests(e.target.value);
+            }}
             id="numGuests"
             className="px-5 py-3 bg-primary-200 text-primary-800 w-full shadow-sm rounded-sm"
             required
@@ -86,6 +89,34 @@ function ReservationForm({ cabin, user, settings }) {
             id="observations"
             className="px-5 py-3 bg-primary-200 text-primary-800 w-full shadow-sm rounded-sm"
             placeholder="Any pets, allergies, special requirements, etc.?"
+          />
+        </div>
+
+        <div className="space-y-2">
+          <label htmlFor="checkInTime">
+            What time do you want to check in?
+          </label>
+          <input
+            type="time"
+            name="checkInTime"
+            id="checkInTime"
+            defaultValue={minCheckInTime}
+            min={minCheckInTime}
+            className="px-5 py-3 bg-primary-200 text-primary-800 w-full shadow-sm rounded-sm"
+          />
+        </div>
+
+        <div className="space-y-2">
+          <label htmlFor="checkOutTime">
+            What time do you want to check out?
+          </label>
+          <input
+            type="time"
+            name="checkOutTime"
+            id="checkOutTime"
+            defaultValue={maxCheckOutTime}
+            max={maxCheckOutTime}
+            className="px-5 py-3 bg-primary-200 text-primary-800 w-full shadow-sm rounded-sm"
           />
         </div>
 
