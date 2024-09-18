@@ -6,10 +6,11 @@ import { createReservationAction } from "@/app/_lib/actions";
 import SubmitButton from "./SubmitButton";
 
 function ReservationForm({ cabin, user, settings }) {
-  const { range, resetRange, setNumGuests } = useReservation();
+  const { range, resetRange, setNumGuests, breakfast, numGuests } =
+    useReservation();
   const { maxCapacity, regularPrice, discount, id } = cabin;
 
-  const { maxCheckOutTime, minCheckInTime } = settings;
+  const { maxCheckOutTime, minCheckInTime, breakfastPrice } = settings;
 
   const startDate = range.from;
   const endDate = range.to;
@@ -17,12 +18,18 @@ function ReservationForm({ cabin, user, settings }) {
   const numNights = differenceInDays(endDate, startDate);
   const cabinPrice = numNights * (regularPrice - discount);
 
+  const extrasPrice = breakfastPrice * numGuests * numNights;
+  const totalPrice = cabinPrice + extrasPrice;
+
   const bookingData = {
     startDate,
     endDate,
     numNights,
     cabinPrice,
     cabinID: id,
+    extrasPrice,
+    totalPrice,
+    hasBreakfast: breakfast,
   };
 
   const createReservationWithData = createReservationAction.bind(

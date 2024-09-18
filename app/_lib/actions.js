@@ -58,10 +58,7 @@ export async function createReservationAction(bookingData, formData) {
     observations: formData.get("observations").slice(0, 1000),
     checkInTime: formData.get("checkInTime"),
     checkOutTime: formData.get("checkOutTime"),
-    extrasPrice: 0,
-    totalPrice: bookingData.cabinPrice,
     isPaid: false,
-    hasBreakfast: false,
     status: "unconfirmed",
   };
 
