@@ -56,6 +56,8 @@ export async function createReservationAction(bookingData, formData) {
     guestID: session.user.guestId,
     numGuests: Number(formData.get("numGuests")),
     observations: formData.get("observations").slice(0, 1000),
+    checkInTime: formData.get("checkInTime"),
+    checkOutTime: formData.get("checkOutTime"),
     extrasPrice: 0,
     totalPrice: bookingData.cabinPrice,
     isPaid: false,

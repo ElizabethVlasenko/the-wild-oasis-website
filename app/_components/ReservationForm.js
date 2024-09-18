@@ -23,8 +23,6 @@ function ReservationForm({ cabin, user, settings }) {
     numNights,
     cabinPrice,
     cabinID: id,
-    checkInTime: minCheckInTime,
-    checkOutTime: maxCheckOutTime,
   };
 
   const createReservationWithData = createReservationAction.bind(
