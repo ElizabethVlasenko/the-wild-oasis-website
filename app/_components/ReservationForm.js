@@ -61,7 +61,7 @@ function ReservationForm({ cabin, user, settings }) {
 
       <form
         action={formAction}
-        className="bg-primary-900 py-10 px-16 text-lg flex gap-5 flex-col min-h-[580px]"
+        className="bg-primary-900 py-10 px-16 text-lg flex gap-5 flex-col min-h-[600px]"
       >
         <div className="space-y-2">
           <label htmlFor="numGuests">How many guests?</label>

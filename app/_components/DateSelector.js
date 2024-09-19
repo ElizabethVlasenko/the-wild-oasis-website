@@ -37,7 +37,7 @@ function DateSelector({ settings, cabin, bookedDays }) {
   return (
     <div className="flex flex-col justify-between">
       <DayPicker
-        className="pt-12 pb-3 place-self-center"
+        className="pt-12 pb-8 place-self-center"
         mode="range"
         onSelect={(range) => setRange(range)}
         selected={displayRange}
@@ -91,7 +91,7 @@ function DateSelector({ settings, cabin, bookedDays }) {
               }`}
             >
               <p className="text-xl">
-                Breakfast price (optional){" "}
+                Total breakfast price (optional){" "}
                 <span className="text-sm">(${breakfastPrice}/person)</span>
               </p>
               <p className="flex gap-2 items-baseline">
@@ -123,7 +123,7 @@ function DateSelector({ settings, cabin, bookedDays }) {
               </p>
             </div>
 
-            <div className="flex gap-4 items-baseline justify-between pt-3">
+            <div className="flex gap-4 items-baseline justify-between pt-8">
               <button
                 className={`border border-primary-800 py-2 px-4 text-sm font-semibold ${
                   breakfast ? "bg-accent-400 text-primary-900" : ""
