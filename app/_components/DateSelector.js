@@ -54,77 +54,96 @@ function DateSelector({ settings, cabin, bookedDays }) {
         }
       />
 
-      <div className="flex items-start justify-between gap-4 px-8 py-4 bg-accent-500 text-primary-800 h-[134px] flex-col">
-        <div className="flex  gap-6 items-baseline">
+      <div className="bg-accent-500 text-primary-800 p-8 pt-6 ">
+        <div className="flex gap-4 items-baseline justify-between border-b-2 border-accent-600 py-2">
+          <p className="text-xl">Cabin price</p>
           <p className="flex gap-2 items-baseline">
             {discount > 0 ? (
               <>
-                <span className="text-2xl">${regularPrice - discount}</span>
                 <span className="line-through font-semibold text-primary-700">
                   ${regularPrice}
                 </span>
+                <span className="text-2xl">${regularPrice - discount}</span>
+                <span>/night</span>
               </>
             ) : (
-              <span className="text-2xl">${regularPrice}</span>
+              <>
+                <span className="text-2xl">${regularPrice}</span>
+                <span>/night</span>
+              </>
             )}
-            <span className="">/night</span>
           </p>
-          {numNights ? (
-            <>
-              <p className="bg-accent-600 px-3 py-2 text-2xl">
-                <span>&times;</span> <span>{numNights}</span>
+        </div>
+
+        {numNights ? (
+          <>
+            <div className="flex gap-4 items-baseline justify-between border-b-2 border-accent-600 py-2">
+              <p className="text-xl">Number of nights</p>
+              <p className="flex gap-2 items-baseline">
+                <span className="text-2xl">{numNights}</span>
+                <span>nights</span>
               </p>
-              {!breakfast ? (
-                <p>
-                  Include breakfast?{" "}
-                  <span
-                    className="cursor-pointer underline"
-                    onClick={() => setBreakfast(true)}
-                  >
-                    Yes
-                  </span>
-                </p>
-              ) : (
-                <p>
-                  Breakfast:{" "}
-                  <span className="text-2xl">
-                    ${numGuests * breakfastPrice * numNights}
-                  </span>{" "}
-                  (${breakfastPrice} / person){" "}
-                  <span
-                    className="text-2xl cursor-pointer"
-                    onClick={() => setBreakfast(false)}
-                  >
-                    x
-                  </span>
-                </p>
-              )}
-            </>
-          ) : null}
-        </div>
+            </div>
 
-        <div className="flex items-baseline gap-6 justify-between w-full">
-          {numNights ? (
-            <p>
-              <span className="text-lg font-bold uppercase">Total</span>{" "}
-              <span className="text-2xl font-semibold">
-                $
-                {breakfast
-                  ? cabinPrice + numGuests * breakfastPrice * numNights
-                  : cabinPrice}
-              </span>
-            </p>
-          ) : null}
-
-          {range.from || range.to ? (
-            <button
-              className="border border-primary-800 py-2 px-4 text-sm font-semibold"
-              onClick={resetRange}
+            <div
+              className={`flex gap-4 items-baseline justify-between border-b-2 border-accent-600 py-2 ${
+                breakfast ? "" : "text-accent-700"
+              }`}
             >
-              Clear
-            </button>
-          ) : null}
-        </div>
+              <p className="text-xl">
+                Breakfast price (optional){" "}
+                <span className="text-sm">(${breakfastPrice}/person)</span>
+              </p>
+              <p className="flex gap-2 items-baseline">
+                <span className="text-2xl">
+                  ${numGuests * breakfastPrice * numNights}
+                </span>
+              </p>
+            </div>
+
+            <div className="flex gap-4 items-baseline justify-between border-b-2 border-accent-600 py-2">
+              <p className="text-xl font-bold">
+                Total price
+                {breakfast ? (
+                  <span className="text-sm font-normal">
+                    {" "}
+                    (breakfast for {numGuests} included)
+                  </span>
+                ) : (
+                  ""
+                )}
+              </p>
+              <p className="font-bold">
+                <span className="text-2xl">
+                  $
+                  {breakfast
+                    ? cabinPrice + numGuests * breakfastPrice * numNights
+                    : cabinPrice}
+                </span>
+              </p>
+            </div>
+
+            <div className="flex gap-4 items-baseline justify-between pt-3">
+              <button
+                className={`border border-primary-800 py-2 px-4 text-sm font-semibold ${
+                  breakfast ? "bg-accent-400 text-primary-900" : ""
+                }}`}
+                onClick={() => setBreakfast((br) => !br)}
+              >
+                {breakfast ? "Breakfast included ✓" : "Include breakfast +"}
+              </button>
+
+              {range.from || range.to ? (
+                <button
+                  className="border border-primary-800 py-2 px-4 text-sm font-semibold"
+                  onClick={resetRange}
+                >
+                  Clear
+                </button>
+              ) : null}
+            </div>
+          </>
+        ) : null}
       </div>
     </div>
   );
