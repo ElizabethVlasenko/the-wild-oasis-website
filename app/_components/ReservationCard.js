@@ -1,4 +1,4 @@
-import { PencilSquareIcon } from "@heroicons/react/24/solid";
+import { CalendarDaysIcon, PencilSquareIcon } from "@heroicons/react/24/solid";
 import { format, formatDistance, isPast, isToday, parseISO } from "date-fns";
 import DeleteReservation from "./DeleteReservation";
 import Image from "next/image";
@@ -9,7 +9,7 @@ export const formatDistanceFromNow = (dateStr) =>
     addSuffix: true,
   }).replace("about ", "");
 
-function ReservationCard({ booking, onDelete }) {
+function ReservationCard({ booking, onDelete, location = "reservation" }) {
   const {
     id,
     guestId,
@@ -71,7 +71,7 @@ function ReservationCard({ booking, onDelete }) {
       </div>
 
       <div className="flex flex-col border-l border-primary-800 w-[100px]">
-        {!isPast(new Date(startDate)) && (
+        {!isPast(new Date(startDate)) && location !== "dashboard" && (
           <>
             <Link
               href={`/account/reservations/edit/${id}`}
@@ -82,6 +82,15 @@ function ReservationCard({ booking, onDelete }) {
             </Link>
             <DeleteReservation bookingId={id} onDelete={onDelete} />
           </>
+        )}
+        {location === "dashboard" && (
+          <Link
+            href={"/account/reservations"}
+            className="group flex items-center justify-center flex-col gap-2 uppercase text-xs font-bold text-primary-300 border-b border-primary-800 flex-grow px-3 hover:bg-accent-600 transition-colors hover:text-primary-900"
+          >
+            <CalendarDaysIcon className="h-5 w-5 text-primary-600 group-hover:text-primary-800 transition-colors" />
+            <span className="mt-1 text-center">Manage bookings</span>
+          </Link>
         )}
       </div>
     </div>
