@@ -8,6 +8,10 @@ import {
 import { format, formatDistance, isPast } from "date-fns";
 
 async function LoyaltySystemStatistics({ bookings, guest }) {
+  const futureBookings = bookings.filter(
+    (booking) => !isPast(new Date(booking.startDate))
+  );
+
   const pastBookings = bookings.filter((booking) =>
     isPast(new Date(booking.startDate))
   );
@@ -25,9 +29,9 @@ async function LoyaltySystemStatistics({ bookings, guest }) {
       <h3 className="font-semibold text-xl text-primary-400 mb-2 ">
         Loyalty system
       </h3>
-      <div className="grid grid-cols-4 gap-6 text-primary-800">
-        <div className="flex gap-3 justify-center flex-col bg-primary-200 items-center p-6 rounded-lg aspect-square">
-          <MoonIcon className="h-10 w-10 text-primary-600 transition-colors" />
+      <div className="grid grid-cols-4 gap-6 text-primary-100">
+        <div className="flex gap-6 justify-center flex-col bg-primary-800 items-center p-6 rounded-lg aspect-square">
+          <MoonIcon className="h-10 w-10 text-primary-400 transition-colors" />
           <p className="text-2xl text-center leading-none">
             <span className="text-sm"> You stayed </span>
             {numNightsStayed ? numNightsStayed : 0}
@@ -35,8 +39,8 @@ async function LoyaltySystemStatistics({ bookings, guest }) {
           </p>
         </div>
 
-        <div className="flex gap-3 justify-center flex-col bg-primary-200 items-center p-6 rounded-lg aspect-square">
-          <CalendarDaysIcon className="h-10 w-10 text-primary-600 transition-colors" />
+        <div className="flex gap-6 justify-center flex-col bg-primary-800 items-center p-6 rounded-lg aspect-square">
+          <CalendarDaysIcon className="h-10 w-10 text-primary-400 transition-colors" />
           <p className="text-2xl text-center leading-none">
             <span className="text-sm"> You came to stay with us </span>
             {pastBookings.length ? pastBookings.length : 0}
@@ -48,21 +52,21 @@ async function LoyaltySystemStatistics({ bookings, guest }) {
           </p>
         </div>
 
-        <div className="flex gap-3 justify-center flex-col bg-primary-200 items-center p-6 rounded-lg aspect-square">
-          <KeyIcon className="h-10 w-10 text-primary-600 transition-colors" />
+        <div className="flex gap-6 justify-center flex-col bg-primary-800 items-center p-6 rounded-lg aspect-square">
+          <KeyIcon className="h-10 w-10 text-primary-400 transition-colors" />
           <p className="text-2xl text-center leading-none">
             <span className="text-sm"> You have </span>
-            {pastBookings.length ? pastBookings.length : 0}
+            {futureBookings.length ? futureBookings.length : 0}
 
             <span className="text-sm">
               {" "}
-              stay{pastBookings.length > 1 && "s"} with us in the future
+              stay{futureBookings.length > 1 && "s"} with us in the future
             </span>
           </p>
         </div>
 
-        <div className="flex gap-3 justify-center flex-col bg-primary-200 items-center p-6 rounded-lg aspect-square">
-          <IdentificationIcon className="h-10 w-10 text-primary-600 transition-colors" />
+        <div className="flex gap-6 justify-center flex-col bg-primary-800 items-center p-6 rounded-lg aspect-square">
+          <IdentificationIcon className="h-10 w-10 text-primary-400 transition-colors" />
           <p className="text-2xl text-center leading-none">
             <span className="text-sm">You have been a member for </span>{" "}
             {/* {format(dateJoined, "dd MMM yyyy")}  */}
