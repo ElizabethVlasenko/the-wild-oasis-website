@@ -2,6 +2,10 @@ import SubmitButton from "@/app/_components/SubmitButton";
 import { updateReservationAction } from "@/app/_lib/actions";
 import { getBooking, getCabin } from "@/app/_lib/data-service";
 
+export async function generateMetadata({ params }) {
+  return { title: `Edit reservation #${params.bookingId}` };
+}
+
 export default async function Page({ params }) {
   const { bookingId } = params;
   const { numGuests, observations, cabinID } = await getBooking(
