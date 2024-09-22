@@ -1,4 +1,5 @@
 import SubmitButton from "@/app/_components/SubmitButton";
+import { createContactMessageAction } from "@/app/_lib/actions";
 import { auth } from "@/app/_lib/auth";
 
 export async function generateMetadata({ params }) {
@@ -16,14 +17,19 @@ async function Page({ params }) {
         Report a problem for the booking #{bookingId}
       </h2>
 
-      <form className="bg-primary-900 py-10 px-14 text-lg space-y-6 max-w-5xl mx-auto">
+      <form
+        action={createContactMessageAction}
+        className="bg-primary-900 py-10 px-14 text-lg space-y-6 max-w-5xl mx-auto"
+      >
+        <input type="hidden" name="bookingId" value={bookingId} />
+
         <div className="space-y-2">
           <label>Full name</label>
           <input
             required
-            disabled
+            readonly="readonly"
             defaultValue={session.user.name}
-            className="px-5 py-3 bg-primary-200 text-primary-800 w-full shadow-sm rounded-sm  disabled:bg-gray-600 disabled:text-gray-400"
+            className="px-5 py-3 w-full shadow-sm rounded-sm  bg-gray-600 text-gray-400"
             name="fullName"
           />
         </div>
@@ -34,9 +40,9 @@ async function Page({ params }) {
             type="email"
             name="email"
             required
-            disabled
+            readonly="readonly"
             defaultValue={session.user.email}
-            className="px-5 py-3 bg-primary-200 text-primary-800 w-full shadow-sm rounded-sm  disabled:bg-gray-600 disabled:text-gray-400"
+            className="px-5 py-3 w-full shadow-sm rounded-sm  bg-gray-600 text-gray-400"
           />
         </div>
 

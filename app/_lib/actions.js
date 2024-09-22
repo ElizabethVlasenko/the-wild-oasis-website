@@ -128,3 +128,23 @@ export async function signInAction() {
 export async function signOutAction() {
   await signOut({ redirectTo: "/" });
 }
+
+export async function createContactMessageAction(formData) {
+  const session = await auth();
+  if (!session)
+    throw new Error("You must be logged in to send a report message");
+
+  console.log(formData);
+
+  const contactData = {
+    guestId: session.user.guestId,
+    bookingId: formData.get("bookingId"),
+    fullName: formData.get("fullName"),
+    email: formData.get("email"),
+    subject: formData.get("subject").slice(0, 1000),
+    message: formData.get("message"),
+  };
+
+  const { error } = await supabase.from("contact").insert([contactData]);
+  if (error) throw new Error("Contact message could not be created");
+}
