@@ -227,3 +227,17 @@ export async function deleteBooking(id) {
   }
   return data;
 }
+
+export async function getContactMessages(guestId) {
+  const { data, error } = await supabase
+    .from("contact")
+    .select("*")
+    .eq("guestId", guestId);
+
+  if (error) {
+    console.error(error);
+    throw new Error("Contact messages could not be loaded");
+  }
+
+  return data;
+}

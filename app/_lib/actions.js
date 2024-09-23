@@ -147,4 +147,6 @@ export async function createContactMessageAction(formData) {
 
   const { error } = await supabase.from("contact").insert([contactData]);
   if (error) throw new Error("Contact message could not be created");
+
+  redirect("/account/reservations/report/success");
 }

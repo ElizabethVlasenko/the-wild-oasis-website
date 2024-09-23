@@ -2,11 +2,12 @@
 import {
   CalendarDaysIcon,
   HomeIcon,
+  MegaphoneIcon,
   UserIcon,
 } from "@heroicons/react/24/solid";
-import SignOutButton from "./SignOutButton";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import SignOutButton from "./SignOutButton";
 
 const navLinks = [
   {
@@ -23,6 +24,11 @@ const navLinks = [
     name: "Guest profile",
     href: "/account/profile",
     icon: <UserIcon className="h-5 w-5 text-primary-600" />,
+  },
+  {
+    name: "Issue reports",
+    href: "/account/report",
+    icon: <MegaphoneIcon className="h-5 w-5 text-primary-600" />,
   },
 ];
 

@@ -19,7 +19,7 @@ async function Page({ params }) {
 
       <form
         action={createContactMessageAction}
-        className="bg-primary-900 py-10 px-14 text-lg space-y-6 max-w-5xl mx-auto"
+        className="bg-primary-900 py-8 px-12 text-lg flex gap-6 flex-col"
       >
         <input type="hidden" name="bookingId" value={bookingId} />
 
@@ -54,8 +54,8 @@ async function Page({ params }) {
             className="px-5 py-3 bg-primary-200 text-primary-800 w-full shadow-sm rounded-sm"
           >
             <option value="">Select subject...</option>
-            <option value="booking-enquiry">Booking problem</option>
-            <option value="cabin-information">Stay problem</option>
+            <option value="booking-problem">Booking problem</option>
+            <option value="stay-problem">Stay problem</option>
             <option value="other">Other</option>
           </select>
         </div>
