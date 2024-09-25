@@ -241,3 +241,18 @@ export async function getContactMessages(guestId) {
 
   return data;
 }
+
+export async function getContactMessage(reportId) {
+  const { data, error } = await supabase
+    .from("contact")
+    .select("*")
+    .eq("id", reportId)
+    .single();
+
+  if (error) {
+    console.error(error);
+    throw new Error("Contact message could not be loaded");
+  }
+
+  return data;
+}
