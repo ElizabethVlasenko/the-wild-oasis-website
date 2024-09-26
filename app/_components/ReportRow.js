@@ -78,7 +78,6 @@ function ReportRow({ report }) {
 export default ReportRow;
 
 function Status({ status }) {
-  console.log(status);
   let statusStyle;
   switch (status) {
     case "complete": {
@@ -101,8 +100,6 @@ function Status({ status }) {
       statusStyle = "bg-yellow-800 text-yellow-200";
     }
   }
-
-  console.log(statusStyle);
 
   return (
     <span

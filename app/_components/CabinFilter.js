@@ -2,7 +2,7 @@
 
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 
-function Filter({ filterData, name }) {
+function CabinFilter() {
   //get current search params
   const searchParams = useSearchParams();
   //get router to change the URL
@@ -11,13 +11,13 @@ function Filter({ filterData, name }) {
   const pathname = usePathname();
 
   //get active filter from the search params
-  const activeFilter = searchParams.get(name) ?? "all";
+  const activeFilter = searchParams.get("capacity") ?? "all";
 
   function handleFilter(filter) {
     //create a new params using the existing search params
     const params = new URLSearchParams(searchParams);
     //set the new filter
-    params.set(name, filter);
+    params.set("capacity", filter);
 
     //replace the URL
     router.replace(`${pathname}?${params.toString()}`, { scroll: false });
@@ -25,16 +25,34 @@ function Filter({ filterData, name }) {
 
   return (
     <div className="border border-primary-800 flex">
-      {filterData.map((filter, i) => (
-        <Button
-          filter={filter.value}
-          handleFilter={handleFilter}
-          activeFilter={activeFilter}
-          key={i}
-        >
-          {filter.label}
-        </Button>
-      ))}
+      <Button
+        filter={"all"}
+        handleFilter={handleFilter}
+        activeFilter={activeFilter}
+      >
+        All cabins
+      </Button>
+      <Button
+        filter={"small"}
+        handleFilter={handleFilter}
+        activeFilter={activeFilter}
+      >
+        1&mdash;3 guests
+      </Button>
+      <Button
+        filter={"medium"}
+        handleFilter={handleFilter}
+        activeFilter={activeFilter}
+      >
+        4&mdash;7 guests
+      </Button>
+      <Button
+        filter={"large"}
+        handleFilter={handleFilter}
+        activeFilter={activeFilter}
+      >
+        8&mdash;12 guests
+      </Button>
     </div>
   );
 }
@@ -52,4 +70,4 @@ function Button({ filter, handleFilter, activeFilter, children }) {
   );
 }
 
-export default Filter;
+export default CabinFilter;

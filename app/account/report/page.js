@@ -1,18 +1,30 @@
+import Filter from "@/app/_components/Filter";
 import ReportTable from "@/app/_components/ReportTable";
-import { auth } from "@/app/_lib/auth";
-import { getContactMessages } from "@/app/_lib/data-service";
 
-async function Page() {
-  const session = await auth();
+const statusFilter = [
+  { label: "All", value: "all" },
+  { label: "Submitted", value: "submitted" },
+  { label: "Viewed", value: "viewed" },
+  { label: "In progress", value: "in-progress" },
+  { label: "Complete", value: "complete" },
+];
 
-  const reports = await getContactMessages(session.user.guestId);
+export const metadata = {
+  title: "Reports",
+};
+
+async function Page({ searchParams }) {
+  const filter = searchParams?.status ?? "all";
 
   return (
     <div>
       <h2 className="font-semibold text-2xl text-accent-400 mb-7">
         Your issue reports
       </h2>
-      <ReportTable reports={reports} />
+      <div className="flex justify-end mb-8">
+        <Filter filterData={statusFilter} name="status" />
+      </div>
+      <ReportTable filter={filter} />
     </div>
   );
 }
