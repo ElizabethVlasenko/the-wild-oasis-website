@@ -1,5 +1,8 @@
 import SubmitButton from "@/app/_components/SubmitButton";
-import { createContactMessageAction } from "@/app/_lib/actions";
+import {
+  createContactMessageAction,
+  updateContactMessageAction,
+} from "@/app/_lib/actions";
 import { auth } from "@/app/_lib/auth";
 import { getContactMessage } from "@/app/_lib/data-service";
 
@@ -21,8 +24,11 @@ async function Page({ params }) {
         Edit a problem {bookingId ? "for the booking #" + bookingId : ""}
       </h2>
 
-      <form className="bg-primary-900 py-8 px-12 text-lg flex gap-6 flex-col">
-        <input type="hidden" name="bookingId" value={bookingId} />
+      <form
+        action={updateContactMessageAction}
+        className="bg-primary-900 py-8 px-12 text-lg flex gap-6 flex-col"
+      >
+        <input type="hidden" name="reportId" value={reportId} />
 
         <div className="space-y-2">
           <label>Subject</label>

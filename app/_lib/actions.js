@@ -151,3 +151,25 @@ export async function createContactMessageAction(formData) {
   revalidatePath("/account/report");
   redirect("/account/reservations/report/success");
 }
+
+export async function updateContactMessageAction(formData) {
+  const session = await auth();
+  if (!session) throw new Error("You must be logged in to update this report");
+
+  const reportId = formData.get("reportId");
+
+  const updateData = {
+    subject: formData.get("subject"),
+    message: formData.get("message").slice(0, 1000),
+  };
+
+  const { data, error } = await supabase
+    .from("contact")
+    .update(updateData)
+    .eq("id", reportId);
+
+  if (error) throw new Error("Guest could not be updated");
+
+  revalidatePath("/account/report");
+  redirect("/account/report");
+}
