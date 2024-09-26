@@ -232,7 +232,8 @@ export async function getContactMessages(guestId) {
   const { data, error } = await supabase
     .from("contact")
     .select("*")
-    .eq("guestId", guestId);
+    .eq("guestId", guestId)
+    .order("created_at", { ascending: false });
 
   if (error) {
     console.error(error);
