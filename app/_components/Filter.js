@@ -2,7 +2,7 @@
 
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 
-function Filter({ filterData, name }) {
+function Filter({ filterData, filterField }) {
   //get current search params
   const searchParams = useSearchParams();
   //get router to change the URL
@@ -11,13 +11,13 @@ function Filter({ filterData, name }) {
   const pathname = usePathname();
 
   //get active filter from the search params
-  const activeFilter = searchParams.get(name) ?? "all";
+  const activeFilter = searchParams.get(filterField) ?? "all";
 
   function handleFilter(filter) {
     //create a new params using the existing search params
     const params = new URLSearchParams(searchParams);
     //set the new filter
-    params.set(name, filter);
+    params.set(filterField, filter);
 
     //replace the URL
     router.replace(`${pathname}?${params.toString()}`, { scroll: false });

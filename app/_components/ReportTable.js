@@ -26,20 +26,20 @@ async function ReportTable({ activeStatusFilter, activeDateFilter }) {
         );
       }
 
-      case "this-week": {
+      case "7-days": {
         return isWithinInterval(new Date(report.created_at), {
           start: sub(new Date(), { weeks: 1 }),
           end: new Date(),
         });
       }
 
-      case "this-month": {
+      case "30-days": {
         return isWithinInterval(new Date(report.created_at), {
           start: new Date(),
           end: sub(new Date(), { months: 1 }),
         });
       }
-      case "this-year": {
+      case "365-days": {
         return isWithinInterval(new Date(report.created_at), {
           start: new Date(),
           end: sub(new Date(), { years: 1 }),

@@ -12,9 +12,9 @@ const statusFilter = [
 const dateFilter = [
   { label: "All", value: "all" },
   { label: "Today", value: "today" },
-  { label: "This week", value: "this-week" },
-  { label: "This month", value: "this-month" },
-  { label: "This year", value: "this-year" },
+  { label: "Last 7 days", value: "7-days" },
+  { label: "Last 30 days", value: "30-days" },
+  { label: "Last 365 days", value: "365-days" },
 ];
 
 export const metadata = {
@@ -23,7 +23,7 @@ export const metadata = {
 
 async function Page({ searchParams }) {
   const activeStatusFilter = searchParams?.status ?? "all";
-  const activeDateFilter = searchParams?.date ?? "all";
+  const activeDateFilter = searchParams?.last ?? "all";
 
   return (
     <div>
@@ -32,10 +32,10 @@ async function Page({ searchParams }) {
       </h2>
 
       <div className="flex justify-end mb-4">
-        <Filter filterData={dateFilter} name="date" />
+        <Filter filterData={dateFilter} filterField="last" />
       </div>
       <div className="flex justify-end mb-8">
-        <Filter filterData={statusFilter} name="status" />
+        <Filter filterData={statusFilter} filterField="status" />
       </div>
 
       <ReportTable
