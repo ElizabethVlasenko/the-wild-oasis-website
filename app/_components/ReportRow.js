@@ -19,8 +19,6 @@ function ReportRow({ report }) {
 
   if (open) displayMessage = message;
 
-  //TODO status: submitted (can delete/edit the report), viewed, in progress, complete
-
   return (
     <div className="flex border border-primary-800">
       <div className="flex-grow px-6 py-3 flex flex-col min-h-40 max-w-[791px]">
