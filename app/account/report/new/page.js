@@ -1,10 +1,6 @@
 import SubmitButton from "@/app/_components/SubmitButton";
-import {
-  createContactMessageAction,
-  updateContactMessageAction,
-} from "@/app/_lib/actions";
+import { createContactMessageAction } from "@/app/_lib/actions";
 import { auth } from "@/app/_lib/auth";
-import { getContactMessage } from "@/app/_lib/data-service";
 
 export const metadata = {
   title: "Report a problem",
@@ -12,8 +8,6 @@ export const metadata = {
 
 async function Page() {
   const session = await auth();
-
-  console.log(session);
 
   return (
     <div>
