@@ -138,7 +138,7 @@ export async function createContactMessageAction(formData) {
 
   const contactData = {
     guestId: session.user.guestId,
-    bookingId: formData.get("bookingId"),
+    bookingId: formData?.get("bookingId"),
     fullName: formData.get("fullName"),
     email: formData.get("email"),
     subject: formData.get("subject").slice(0, 1000),
