@@ -173,3 +173,29 @@ export async function updateContactMessageAction(formData) {
   revalidatePath("/account/report");
   redirect("/account/report");
 }
+
+export async function createReviewAction(reviewData, formData) {
+  const session = await auth();
+  if (!session)
+    throw new Error("You must be logged in to create your reservation");
+
+  const guestBookings = await getBookings(session.user.guestId);
+
+  const guestBookingsIds = guestBookings.map((booking) => booking.id);
+
+  if (!guestBookingsIds.includes(Number(reviewData.bookingId)))
+    throw new Error("You can only add reviews to your own reservations");
+
+  const newReview = {
+    ...reviewData,
+    title: formData.get("title"),
+    review: formData.get("review").slice(0, 1000),
+  };
+
+  const { error } = await supabase.from("reviews").insert([newReview]);
+
+  if (error) {
+    console.error(error);
+    throw new Error("Booking could not be created");
+  }
+}

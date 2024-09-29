@@ -1,6 +1,7 @@
 import {
   CalendarDaysIcon,
   MegaphoneIcon,
+  PencilIcon,
   PencilSquareIcon,
 } from "@heroicons/react/24/solid";
 import { format, formatDistance, isPast, isToday, parseISO } from "date-fns";
@@ -14,9 +15,11 @@ export const formatDistanceFromNow = (dateStr) =>
   }).replace("about ", "");
 
 function ReservationCard({ booking, onDelete, location = "reservation" }) {
+  console.log(booking);
   const {
     id,
-    guestId,
+    guestID,
+    cabinID,
     startDate,
     endDate,
     numNights,
@@ -75,27 +78,38 @@ function ReservationCard({ booking, onDelete, location = "reservation" }) {
       </div>
 
       <div className="flex flex-col border-l border-primary-800 w-[100px]">
-        {isPast(new Date(startDate)) && (
-          <Link
-            href={`/account/reservations/report/${id}`}
-            className="group flex items-center gap-2 uppercase text-xs font-bold text-primary-300 border-b border-primary-800 flex-grow px-3 hover:bg-accent-600 transition-colors hover:text-primary-900"
-          >
-            <MegaphoneIcon className="h-5 w-5 text-primary-600 group-hover:text-primary-800 transition-colors" />
-            <span className="mt-1">Report</span>
-          </Link>
-        )}
-        {!isPast(new Date(startDate)) && location !== "dashboard" && (
+        {isPast(new Date(startDate)) && location !== "review" && (
           <>
             <Link
-              href={`/account/reservations/edit/${id}`}
+              href={`/account/reservations/review/${id}`}
               className="group flex items-center gap-2 uppercase text-xs font-bold text-primary-300 border-b border-primary-800 flex-grow px-3 hover:bg-accent-600 transition-colors hover:text-primary-900"
             >
-              <PencilSquareIcon className="h-5 w-5 text-primary-600 group-hover:text-primary-800 transition-colors" />
-              <span className="mt-1">Edit</span>
+              <PencilIcon className="h-5 w-5 text-primary-600 group-hover:text-primary-800 transition-colors" />
+              <span className="mt-1">Review</span>
             </Link>
-            <DeleteReservation bookingId={id} onDelete={onDelete} />
+            <Link
+              href={`/account/reservations/report/${id}`}
+              className="group flex items-center gap-2 uppercase text-xs font-bold text-primary-300 border-b border-primary-800 flex-grow px-3 hover:bg-accent-600 transition-colors hover:text-primary-900"
+            >
+              <MegaphoneIcon className="h-5 w-5 text-primary-600 group-hover:text-primary-800 transition-colors" />
+              <span className="mt-1">Report</span>
+            </Link>
           </>
         )}
+        {!isPast(new Date(startDate)) &&
+          location !== "dashboard" &&
+          location !== "review" && (
+            <>
+              <Link
+                href={`/account/reservations/edit/${id}`}
+                className="group flex items-center gap-2 uppercase text-xs font-bold text-primary-300 border-b border-primary-800 flex-grow px-3 hover:bg-accent-600 transition-colors hover:text-primary-900"
+              >
+                <PencilSquareIcon className="h-5 w-5 text-primary-600 group-hover:text-primary-800 transition-colors" />
+                <span className="mt-1">Edit</span>
+              </Link>
+              <DeleteReservation bookingId={id} onDelete={onDelete} />
+            </>
+          )}
         {location === "dashboard" && (
           <Link
             href={"/account/reservations"}
@@ -103,6 +117,16 @@ function ReservationCard({ booking, onDelete, location = "reservation" }) {
           >
             <CalendarDaysIcon className="h-5 w-5 text-primary-600 group-hover:text-primary-800 transition-colors" />
             <span className="mt-1 text-center">Manage bookings</span>
+          </Link>
+        )}
+
+        {location === "review" && (
+          <Link
+            href={`/cabins/${cabinID}`}
+            className="group flex items-center justify-center flex-col gap-2 uppercase text-xs font-bold text-primary-300 border-b border-primary-800 flex-grow px-3 hover:bg-accent-600 transition-colors hover:text-primary-900"
+          >
+            <CalendarDaysIcon className="h-5 w-5 text-primary-600 group-hover:text-primary-800 transition-colors" />
+            <span className="mt-1 text-center">View cabin</span>
           </Link>
         )}
       </div>
