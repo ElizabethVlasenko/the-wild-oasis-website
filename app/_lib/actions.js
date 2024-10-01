@@ -192,6 +192,8 @@ export async function createReviewAction(reviewData, formData) {
     review: formData.get("review").slice(0, 1000),
   };
 
+  console.log(newReview);
+
   const { error } = await supabase.from("reviews").insert([newReview]);
 
   if (error) {

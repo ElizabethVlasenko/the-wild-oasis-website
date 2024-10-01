@@ -23,6 +23,19 @@ function RateCabinForm({ session, bookingId, cabinId }) {
     cabinId,
     cleanlinessRating: ratings.cleanliness,
     locationRating: ratings.location,
+    comfortRating: ratings.comfort,
+    activitiesRating: ratings.activities,
+    serviceRating: ratings.service,
+    valueForMoneyRating: ratings.valueForMoney,
+    totalRating: Math.round(
+      (ratings.cleanliness +
+        ratings.location +
+        ratings.comfort +
+        ratings.activities +
+        ratings.service +
+        ratings.valueForMoney) /
+        6
+    ),
   };
 
   const createReviewWithData = createReviewAction.bind(null, reviewData);
@@ -36,20 +49,6 @@ function RateCabinForm({ session, bookingId, cabinId }) {
       action={formAction}
       className="bg-primary-900 py-8 px-12 text-lg flex gap-6 flex-col mt-7"
     >
-      <StarRating
-        size={40}
-        onSetRating={(rating) => handleRatingSet(rating, "cleanliness")}
-        maxRating={10}
-        color="#C69963"
-      />
-
-      <StarRating
-        size={40}
-        onSetRating={(rating) => handleRatingSet(rating, "location")}
-        maxRating={10}
-        color="#C69963"
-      />
-
       <div className="space-y-2">
         <label>Title</label>
         <textarea
@@ -67,6 +66,66 @@ function RateCabinForm({ session, bookingId, cabinId }) {
           name="review"
           className="px-5 py-3 bg-primary-200 text-primary-800 w-full shadow-sm rounded-sm placeholder:text-primary-500"
           rows={3}
+        />
+      </div>
+
+      <div className="">
+        <label>Location</label>
+        <StarRating
+          size={30}
+          onSetRating={(rating) => handleRatingSet(rating, "location")}
+          maxRating={10}
+          color="#C69963"
+        />
+      </div>
+
+      <div className="">
+        <label>Cleanliness</label>
+        <StarRating
+          size={30}
+          onSetRating={(rating) => handleRatingSet(rating, "cleanliness")}
+          maxRating={10}
+          color="#C69963"
+        />
+      </div>
+
+      <div className="">
+        <label>Comfort & Amenities</label>
+        <StarRating
+          size={30}
+          onSetRating={(rating) => handleRatingSet(rating, "comfort")}
+          maxRating={10}
+          color="#C69963"
+        />
+      </div>
+
+      <div className="">
+        <label>Outdoor Activities</label>
+        <StarRating
+          size={30}
+          onSetRating={(rating) => handleRatingSet(rating, "activities")}
+          maxRating={10}
+          color="#C69963"
+        />
+      </div>
+
+      <div className="Host & Service">
+        <label>Host & Service</label>
+        <StarRating
+          size={30}
+          onSetRating={(rating) => handleRatingSet(rating, "service")}
+          maxRating={10}
+          color="#C69963"
+        />
+      </div>
+
+      <div className="">
+        <label>Value for Money</label>
+        <StarRating
+          size={30}
+          onSetRating={(rating) => handleRatingSet(rating, "valueForMoney")}
+          maxRating={10}
+          color="#C69963"
         />
       </div>
 
