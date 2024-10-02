@@ -16,8 +16,6 @@ async function Page({ params }) {
   const { reportId } = params;
   const { bookingId, subject, message } = await getContactMessage(reportId);
 
-  console.log(bookingId);
-
   return (
     <div>
       <h2 className="font-semibold text-2xl text-accent-400 mb-7">

@@ -134,8 +134,6 @@ export async function createContactMessageAction(formData) {
   if (!session)
     throw new Error("You must be logged in to send a report message");
 
-  console.log(formData);
-
   const contactData = {
     guestId: session.user.guestId,
     bookingId: formData?.get("bookingId"),
@@ -191,8 +189,6 @@ export async function createReviewAction(reviewData, formData) {
     title: formData.get("title"),
     review: formData.get("review").slice(0, 1000),
   };
-
-  console.log(newReview);
 
   const { error } = await supabase.from("reviews").insert([newReview]);
 

@@ -74,6 +74,7 @@ function RateCabinForm({ session, bookingId, cabinId }) {
         <StarRating
           size={30}
           onSetRating={(rating) => handleRatingSet(rating, "location")}
+          defaultRating={5}
           maxRating={10}
           color="#C69963"
         />
@@ -84,6 +85,7 @@ function RateCabinForm({ session, bookingId, cabinId }) {
         <StarRating
           size={30}
           onSetRating={(rating) => handleRatingSet(rating, "cleanliness")}
+          defaultRating={5}
           maxRating={10}
           color="#C69963"
         />
@@ -94,6 +96,7 @@ function RateCabinForm({ session, bookingId, cabinId }) {
         <StarRating
           size={30}
           onSetRating={(rating) => handleRatingSet(rating, "comfort")}
+          defaultRating={5}
           maxRating={10}
           color="#C69963"
         />
@@ -104,6 +107,7 @@ function RateCabinForm({ session, bookingId, cabinId }) {
         <StarRating
           size={30}
           onSetRating={(rating) => handleRatingSet(rating, "activities")}
+          defaultRating={5}
           maxRating={10}
           color="#C69963"
         />
@@ -114,6 +118,7 @@ function RateCabinForm({ session, bookingId, cabinId }) {
         <StarRating
           size={30}
           onSetRating={(rating) => handleRatingSet(rating, "service")}
+          defaultRating={5}
           maxRating={10}
           color="#C69963"
         />
@@ -124,6 +129,7 @@ function RateCabinForm({ session, bookingId, cabinId }) {
         <StarRating
           size={30}
           onSetRating={(rating) => handleRatingSet(rating, "valueForMoney")}
+          defaultRating={5}
           maxRating={10}
           color="#C69963"
         />
