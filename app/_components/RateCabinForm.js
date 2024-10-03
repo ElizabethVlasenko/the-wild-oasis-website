@@ -4,11 +4,19 @@ import SubmitButton from "@/app/_components/SubmitButton";
 import {
   createContactMessageAction,
   createReviewAction,
+  updateReviewAction,
 } from "@/app/_lib/actions";
 import { useState } from "react";
 
-function RateCabinForm({ session, bookingId, cabinId }) {
-  const [ratings, setRatings] = useState({});
+function RateCabinForm({ session, bookingId, cabinId, existingReview }) {
+  const [ratings, setRatings] = useState({
+    location: existingReview?.locationRating || 5,
+    cleanliness: existingReview?.cleanlinessRating || 5,
+    comfort: existingReview?.comfortRating || 5,
+    activities: existingReview?.activitiesRating || 5,
+    service: existingReview?.serviceRating || 5,
+    valueForMoney: existingReview?.valueForMoneyRating || 5,
+  });
 
   function handleRatingSet(rating, ratingKey) {
     setRatings((prevRatings) => ({
@@ -21,8 +29,8 @@ function RateCabinForm({ session, bookingId, cabinId }) {
     guestId: session.user.guestId,
     bookingId,
     cabinId,
-    cleanlinessRating: ratings.cleanliness,
     locationRating: ratings.location,
+    cleanlinessRating: ratings.cleanliness,
     comfortRating: ratings.comfort,
     activitiesRating: ratings.activities,
     serviceRating: ratings.service,
@@ -39,9 +47,12 @@ function RateCabinForm({ session, bookingId, cabinId }) {
   };
 
   const createReviewWithData = createReviewAction.bind(null, reviewData);
+  const updateReviewWithData = updateReviewAction.bind(null, reviewData);
 
   const formAction = async (formData) => {
-    await createReviewWithData(formData);
+    if (existingReview) {
+      await updateReviewWithData(formData);
+    } else await createReviewWithData(formData);
   };
 
   return (
@@ -54,6 +65,7 @@ function RateCabinForm({ session, bookingId, cabinId }) {
         <textarea
           name="title"
           placeholder="Review title"
+          defaultValue={existingReview?.title}
           className="px-5 py-3 bg-primary-200 text-primary-800 w-full shadow-sm rounded-sm placeholder:text-primary-500"
           rows={1}
         />
@@ -64,6 +76,7 @@ function RateCabinForm({ session, bookingId, cabinId }) {
         <textarea
           placeholder="Write a short summary of your stay"
           name="review"
+          defaultValue={existingReview?.review}
           className="px-5 py-3 bg-primary-200 text-primary-800 w-full shadow-sm rounded-sm placeholder:text-primary-500"
           rows={3}
         />
@@ -74,7 +87,7 @@ function RateCabinForm({ session, bookingId, cabinId }) {
         <StarRating
           size={30}
           onSetRating={(rating) => handleRatingSet(rating, "location")}
-          defaultRating={5}
+          defaultRating={ratings.location}
           maxRating={10}
           color="#C69963"
         />
@@ -85,7 +98,7 @@ function RateCabinForm({ session, bookingId, cabinId }) {
         <StarRating
           size={30}
           onSetRating={(rating) => handleRatingSet(rating, "cleanliness")}
-          defaultRating={5}
+          defaultRating={ratings.cleanliness}
           maxRating={10}
           color="#C69963"
         />
@@ -96,7 +109,7 @@ function RateCabinForm({ session, bookingId, cabinId }) {
         <StarRating
           size={30}
           onSetRating={(rating) => handleRatingSet(rating, "comfort")}
-          defaultRating={5}
+          defaultRating={ratings.comfort}
           maxRating={10}
           color="#C69963"
         />
@@ -107,7 +120,7 @@ function RateCabinForm({ session, bookingId, cabinId }) {
         <StarRating
           size={30}
           onSetRating={(rating) => handleRatingSet(rating, "activities")}
-          defaultRating={5}
+          defaultRating={ratings.activities}
           maxRating={10}
           color="#C69963"
         />
@@ -118,7 +131,7 @@ function RateCabinForm({ session, bookingId, cabinId }) {
         <StarRating
           size={30}
           onSetRating={(rating) => handleRatingSet(rating, "service")}
-          defaultRating={5}
+          defaultRating={ratings.service}
           maxRating={10}
           color="#C69963"
         />
@@ -129,14 +142,16 @@ function RateCabinForm({ session, bookingId, cabinId }) {
         <StarRating
           size={30}
           onSetRating={(rating) => handleRatingSet(rating, "valueForMoney")}
-          defaultRating={5}
+          defaultRating={ratings.valueForMoney}
           maxRating={10}
           color="#C69963"
         />
       </div>
 
       <div className="flex justify-end items-center gap-6">
-        <SubmitButton>Submit review</SubmitButton>
+        <SubmitButton>
+          {existingReview ? "Update" : "Submit"} review
+        </SubmitButton>
       </div>
     </form>
   );

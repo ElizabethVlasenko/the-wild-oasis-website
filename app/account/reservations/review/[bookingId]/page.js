@@ -1,7 +1,7 @@
 import RateCabinForm from "@/app/_components/RateCabinForm";
 import ReservationCard from "@/app/_components/ReservationCard";
 import { auth } from "@/app/_lib/auth";
-import { getBooking } from "@/app/_lib/data-service";
+import { getBooking, getReviewForBooking } from "@/app/_lib/data-service";
 
 export async function generateMetadata({ params }) {
   return { title: `Review your stay #${params.bookingId}` };
@@ -12,6 +12,7 @@ async function Page({ params }) {
 
   const { bookingId } = params;
   const booking = await getBooking(bookingId);
+  const existingReview = await getReviewForBooking(bookingId);
 
   return (
     <div>
@@ -22,6 +23,7 @@ async function Page({ params }) {
       <ReservationCard booking={booking} location="review" />
 
       <RateCabinForm
+        existingReview={existingReview}
         session={session}
         bookingId={bookingId}
         cabinId={booking.cabinID}

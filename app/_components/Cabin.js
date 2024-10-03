@@ -2,12 +2,14 @@ import Image from "next/image";
 import TextExpander from "./TextExpander";
 import { EyeSlashIcon, MapPinIcon, UsersIcon } from "@heroicons/react/24/solid";
 
-function Cabin({ cabin }) {
+import DisplayRatingStars from "./DisplayRatingStars";
+
+function Cabin({ cabin, averageRating }) {
   const { id, name, maxCapacity, regularPrice, discount, image, description } =
     cabin;
 
   return (
-    <div className="grid grid-cols-[3fr_4fr] gap-20 border border-primary-800 py-3 px-10 mb-24">
+    <div className="grid grid-cols-[3fr_4fr] gap-20 border border-primary-800 py-3 px-10 mb-24 relative">
       <div className="relative scale-[1.15] -translate-x-3">
         <Image
           src={image}
@@ -21,6 +23,13 @@ function Cabin({ cabin }) {
         <h3 className="text-accent-100 font-black text-7xl mb-5 translate-x-[-254px] bg-primary-950 p-6 pb-1 w-[150%]">
           Cabin {name}
         </h3>
+        <div className="absolute top-10 right-10 w-72">
+          {averageRating ? (
+            <DisplayRatingStars totalRating={averageRating} />
+          ) : (
+            <p className="text-right text-primary-300">No reviews yet</p>
+          )}
+        </div>
 
         <p className="text-lg text-primary-300 mb-10">
           <TextExpander>{description}</TextExpander>

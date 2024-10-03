@@ -14,7 +14,7 @@ function Review({ reviews }) {
       <h2 className="mt-10 text-5xl font-semibold text-center mb-10 text-accent-400">
         Reviews
       </h2>
-      <div className="mt-10 flex flex-row flex-wrap gap-10 justify-between">
+      <div className="mt-10 flex flex-row flex-wrap gap-[2.7rem] justify-start">
         {displayReviews.map((review) => (
           <ReviewCard review={review} key={review.id} />
         ))}

@@ -276,3 +276,20 @@ export async function getReviews(cabinId) {
 
   return data;
 }
+
+export async function getReviewForBooking(bookingId) {
+  const { data, error } = await supabase
+    .from("reviews")
+    .select(
+      "id, created_at, title, review, cleanlinessRating, locationRating, comfortRating, activitiesRating, serviceRating, valueForMoneyRating, totalRating"
+    )
+    .eq("bookingId", bookingId)
+    .single();
+
+  // if (error) {
+  //   console.error(error);
+  //   throw new Error("Review could not get loaded");
+  // }
+
+  return data;
+}
