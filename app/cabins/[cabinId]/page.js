@@ -1,7 +1,8 @@
 import Cabin from "@/app/_components/Cabin";
 import Reservation from "@/app/_components/Reservation";
+import Review from "@/app/_components/Review";
 import Spinner from "@/app/_components/Spinner";
-import { getCabin, getCabins } from "@/app/_lib/data-service";
+import { getCabin, getCabins, getReviews } from "@/app/_lib/data-service";
 import { Suspense } from "react";
 
 // export const metadata = {
@@ -22,6 +23,7 @@ export async function generateStaticParams() {
 
 export default async function Page({ params }) {
   const cabin = await getCabin(params.cabinId);
+  const reviews = await getReviews(params.cabinId);
 
   return (
     <div className="max-w-6xl mx-auto mt-8">
@@ -32,6 +34,7 @@ export default async function Page({ params }) {
         </h2>
         <Suspense fallback={<Spinner />}>
           <Reservation cabin={cabin} />
+          <Review reviews={reviews} />
         </Suspense>
       </div>
     </div>

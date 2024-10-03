@@ -43,3 +43,23 @@
   grid-template-columns: 1fr 1fr;
   gap: 1rem;
 }
+
+/* width */
+::-webkit-scrollbar {
+  width: 7px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: rgb(210 175 132 / var(--tw-text-opacity));
+  border-radius: 5px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
