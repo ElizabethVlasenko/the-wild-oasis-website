@@ -14,15 +14,19 @@ function ReviewCard({ review }) {
     totalRating,
     guests: { fullName },
     bookings: { startDate, endDate, numNights },
+    cabins: { name },
   } = review;
 
   return (
     <div className="bg-primary-900 p-5 w-[355px]">
-      <p className="text-center mb-2 text-xl">
+      <p className="text-center text-xl">
         {fullName.split(" ")[0] +
           " " +
           fullName.split(" ")[1].slice(0, 1) +
           "."}
+      </p>
+      <p className="text-sm text-primary-300 text-center mb-2 ">
+        Review of cabin {name}
       </p>
       <div className="flex mb-3">
         {Array.from({ length: 10 }, (_, i) => (

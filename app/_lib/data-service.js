@@ -264,7 +264,7 @@ export async function getReviews(cabinId) {
   const { data, error } = await supabase
     .from("reviews")
     .select(
-      "id, created_at, title, review, cleanlinessRating, locationRating, comfortRating, activitiesRating, serviceRating, valueForMoneyRating, totalRating, bookings(startDate, endDate, numNights), guests(fullName)"
+      "id, created_at, title, review, cleanlinessRating, locationRating, comfortRating, activitiesRating, serviceRating, valueForMoneyRating, totalRating, bookings(startDate, endDate, numNights), guests(fullName), cabins(name)"
     )
     .eq("cabinId", cabinId)
     .order("created_at", { ascending: false });
